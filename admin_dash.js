@@ -1,4 +1,4 @@
-const baseURL = "https://mediqueue-production.up.railway.app";
+// const baseURL = "https://mediqueue-production.up.railway.app";
 
 document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem("token");

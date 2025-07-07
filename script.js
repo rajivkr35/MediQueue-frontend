@@ -1,6 +1,6 @@
 // frontend/script.js
 
-const baseURL = "https://mediqueue-production.up.railway.app";
+// const baseURL = "https://mediqueue-production.up.railway.app";
 
 document.addEventListener("DOMContentLoaded", () => {
   if (typeof pageType === "undefined") return;
