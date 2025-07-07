@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ✅ Verify role from backend
-  fetch("http://127.0.0.1:8000/verify", {
+  fetch("https://mediqueue-production.up.railway.app/verify", {
     method: "GET",
     headers: {
       Authorization: "Bearer " + token
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const waitTimeDiv = document.getElementById("waitTime");
 
   // 📥 Load existing queue
-  fetch("http://127.0.0.1:8000/get_queue", {
+  fetch("https://mediqueue-production.up.railway.app/get_queue", {
     headers: {
       Authorization: "Bearer " + token,
     },
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const patientData = { name, age, gender, phone, address, problem };
 
-    fetch("http://127.0.0.1:8000/add_patient", {
+    fetch("https://mediqueue-production.up.railway.app/add_patient", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
           addRowToTable(newPatient);
 
           // ⏱️ Predict wait time using ML
-          fetch("http://127.0.0.1:8000/predict_wait_time", {
+          fetch("https://mediqueue-production.up.railway.app/predict_wait_time", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // ❌ Remove patient button
     row.querySelector(".removeBtn").addEventListener("click", function () {
       const id = this.dataset.id;
-      fetch(`http://127.0.0.1:8000/remove_patient/${id}`, {
+      fetch(`https://mediqueue-production.up.railway.app/remove_patient/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: "Bearer " + token,

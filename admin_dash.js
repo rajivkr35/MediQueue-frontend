@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const logoutBtn = document.getElementById("logoutBtn");
 
   // 🔍 Verify token and show admin info
-  fetch("http://127.0.0.1:8000/verify", {
+  fetch("https://mediqueue-production.up.railway.app/verify", {
     headers: {
       Authorization: "Bearer " + token,
     },
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 📥 Fetch and render all registered patients
   function fetchPatientList() {
-    fetch("http://127.0.0.1:8000/admin/patients", {
+    fetch("https://mediqueue-production.up.railway.app/admin/patients", {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
       removeBtn.addEventListener("click", () => {
         const id = removeBtn.dataset.id;
         if (confirm("Are you sure you want to remove this patient?")) {
-          fetch(`http://127.0.0.1:8000/admin/remove_patient/${id}`, {
+          fetch(`https://mediqueue-production.up.railway.app/admin/remove_patient/${id}`, {
             method: "DELETE",
             headers: {
               Authorization: "Bearer " + token,

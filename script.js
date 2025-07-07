@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const msgBox = document.getElementById("registerMsg");
 
       try {
-        const res = await fetch("http://127.0.0.1:8000/register", {
+        const res = await fetch("https://mediqueue-production.up.railway.app/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const msgBox = document.getElementById("loginMsg");
 
       try {
-        const res = await fetch("http://127.0.0.1:8000/login", {
+        const res = await fetch("https://mediqueue-production.up.railway.app/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }),
