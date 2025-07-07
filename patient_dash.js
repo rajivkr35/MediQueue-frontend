@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 🔐 Redirect if not logged in
   if (!token) {
-    window.location.href = "login.html";
+    window.location.href = "index.html";
     return;
   }
 
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(res => res.json())
     .then(data => {
       if (data.role !== "patient") {
-        window.location.href = "login.html";
+        window.location.href = "index.html";
       } else {
         // ✅ Show email
         const userInfo = document.getElementById("userInfo");
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch(err => {
       console.error("Verification failed:", err);
-      window.location.href = "login.html";
+      window.location.href = "index.html";
     });
 
   const patientForm = document.getElementById("patientForm");
@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
     logoutBtn.addEventListener("click", () => {
       if (confirm("Do you really want to log out?")) {
         localStorage.removeItem("token");
-        window.location.href = "login.html";
+        window.location.href = "index.html";
       }
     });
   }

@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 🔐 Redirect if not logged in
   if (!token) {
-    window.location.href = "login.html";
+    window.location.href = "index.html";
     return;
   }
 
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then((data) => {
       if (data.role !== "admin") {
-        window.location.href = "login.html";
+        window.location.href = "index.html";
         return;
       }
 
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch((err) => {
       console.error("Access denied:", err);
-      window.location.href = "login.html";
+      window.location.href = "index.html";
     });
 
   // 📥 Fetch and render all registered patients
@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
   logoutBtn.addEventListener("click", () => {
     if (confirm("Do you really want to logout?")) {
       localStorage.removeItem("token");
-      window.location.href = "login.html";
+      window.location.href = "index.html";
     }
   });
 });
