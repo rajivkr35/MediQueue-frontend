@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MediQueue Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <div class="bg-white shadow-lg rounded p-6 w-full max-w-md">
+    <h1 class="text-2xl font-bold text-blue-700 text-center mb-4">Login to MediQueue</h1>
+
+    <!-- 🔘 Role Toggle -->
+    <div class="flex justify-center mb-4 gap-4">
+      <button id="patientBtn" class="px-4 py-2 bg-blue-600 text-white rounded">Patient</button>
+      <button id="adminBtn" class="px-4 py-2 bg-gray-300 text-gray-700 rounded">Admin</button>
+    </div>
+
+    <!-- 📝 Login Form -->
+    <form id="loginForm" class="space-y-4">
+      <input type="email" id="email" placeholder="Email" required
+        class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300" />
+      <input type="password" id="password" placeholder="Password" required
+        class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300" />
+      <button type="submit"
+  class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+  Login
+</button>
+
+<!-- 🔗 Register Redirect -->
+<p class="text-center text-sm mt-4 text-gray-600">
+  Don’t have an account?
+  <a href="register.html" class="text-blue-600 hover:underline font-medium">
+    Register here
+  </a>
+</p>
+
+    </form>
+  </div>
+
+  <!-- 🧠 Script -->
+  <script>
+  let role = "patient"; // default
+
+  // Role Toggle
+  const patientBtn = document.getElementById("patientBtn");
+  const adminBtn = document.getElementById("adminBtn");
+
+  patientBtn.addEventListener("click", () => {
+    role = "patient";
+    patientBtn.classList.add("bg-blue-600", "text-white");
+    patientBtn.classList.remove("bg-gray-300", "text-gray-700");
+    adminBtn.classList.remove("bg-blue-600", "text-white");
+    adminBtn.classList.add("bg-gray-300", "text-gray-700");
+  });
+
+  adminBtn.addEventListener("click", () => {
+    role = "admin";
+    adminBtn.classList.add("bg-blue-600", "text-white");
+    adminBtn.classList.remove("bg-gray-300", "text-gray-700");
+    patientBtn.classList.remove("bg-blue-600", "text-white");
+    patientBtn.classList.add("bg-gray-300", "text-gray-700");
+  });
+
+  // Login Handler
+  document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+      const res = await fetch("http://127.0.0.1:8000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, role }) // ✅ send role here
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.access_token) {
+        localStorage.setItem("token", data.access_token);
+        // ✅ Redirect based on role
+        if (role === "admin") {
+          window.location.href = "admin_dash.html";
+        } else {
+          window.location.href = "patient_dash.html";
+        }
+      } else {
+        alert(typeof data.detail === "string" ? data.detail : JSON.stringify(data.detail));
+      }
+    } catch (err) {
+      console.error(err);
+      alert("⚠️ Could not connect to server.");
+    }
+  });
+</script>
+
+</body>
+</html>

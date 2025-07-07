@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Register - Smart Queue</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">
+  <div class="bg-white shadow-lg rounded p-6 w-full max-w-md">
+    <h1 class="text-2xl font-bold text-blue-700 text-center mb-4">MediQueue Register</h1>
+
+    <!-- 🔘 Role Toggle -->
+    <div class="flex justify-center gap-4 mb-4">
+      <button id="patientBtn" class="bg-blue-600 text-white px-4 py-2 rounded">Patient</button>
+      <button id="adminBtn" class="bg-gray-300 text-gray-700 px-4 py-2 rounded">Admin</button>
+    </div>
+
+    <!-- 📝 Registration Form -->
+    <form id="registerForm" class="space-y-4">
+      <input type="text" id="name" placeholder="Full Name" required class="w-full px-4 py-2 border rounded" />
+      <input type="email" id="email" placeholder="Email" required class="w-full px-4 py-2 border rounded" />
+      <input type="password" id="password" placeholder="Password" required class="w-full px-4 py-2 border rounded" />
+      <input type="tel" id="phone" placeholder="Phone" required class="w-full px-4 py-2 border rounded" />
+
+      <!-- 👤 Patient Fields -->
+      <div id="patientFields" class="space-y-4">
+        <input type="number" id="age" placeholder="Age" class="w-full px-4 py-2 border rounded" />
+        <select id="gender" class="w-full px-4 py-2 border rounded">
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="text" id="address" placeholder="Address" class="w-full px-4 py-2 border rounded" />
+      </div>
+
+      <!-- 🏥 Admin Fields -->
+      <div id="adminFields" class="space-y-4 hidden">
+        <input type="text" id="hospital" placeholder="Hospital Name" class="w-full px-4 py-2 border rounded" />
+      </div>
+
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+        Register
+      </button>
+      <!-- 🔗 Link to Login Page -->
+<p class="text-center mt-4 text-sm text-gray-600">
+  Already have an account?
+  <a href="login.html" class="text-blue-600 hover:underline font-medium">Go to Login</a>
+</p>
+
+    </form>
+  </div>
+
+  <!-- 🧠 Script -->
+  <script>
+    let role = "patient"; // default
+
+    const patientBtn = document.getElementById("patientBtn");
+    const adminBtn = document.getElementById("adminBtn");
+    const patientFields = document.getElementById("patientFields");
+    const adminFields = document.getElementById("adminFields");
+
+    // 🔁 Toggle Role UI
+    patientBtn.addEventListener("click", () => {
+      role = "patient";
+      patientBtn.classList.add("bg-blue-600", "text-white");
+      adminBtn.classList.remove("bg-blue-600", "text-white");
+      adminBtn.classList.add("bg-gray-300", "text-gray-700");
+
+      patientFields.classList.remove("hidden");
+      adminFields.classList.add("hidden");
+    });
+
+    adminBtn.addEventListener("click", () => {
+      role = "admin";
+      adminBtn.classList.add("bg-blue-600", "text-white");
+      patientBtn.classList.remove("bg-blue-600", "text-white");
+      patientBtn.classList.add("bg-gray-300", "text-gray-700");
+
+      patientFields.classList.add("hidden");
+      adminFields.classList.remove("hidden");
+    });
+
+    // 📤 Submit Register
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const payload = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value,
+        phone: document.getElementById("phone").value,
+        role: role,
+      };
+
+      if (role === "patient") {
+        payload.age = parseInt(document.getElementById("age").value);
+        payload.gender = document.getElementById("gender").value;
+        payload.address = document.getElementById("address").value;
+      } else if (role === "admin") {
+        payload.hospital_name = document.getElementById("hospital").value;
+      }
+
+      try {
+        const res = await fetch("http://127.0.0.1:8000/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          alert("✅ Registered successfully. Now login.");
+          window.location.href = "login.html";
+        } else {
+          alert(data.detail || "Registration failed.");
+        }
+      } catch (err) {
+        alert("⚠️ Server error");
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

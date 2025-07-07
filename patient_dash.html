@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediQueue– patient dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 p-6">
+  <div class="max-w-4xl mx-auto">
+    <div class="flex justify-between items-center mb-2">
+      <h1 class="text-3xl font-bold">🏥 MediQueue</h1>
+      <button id="logoutBtn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
+        🔒 Logout
+      </button>
+    </div>
+
+    <!-- Logged in user info -->
+    <p id="userInfo" class="text-sm text-gray-600 mb-4"></p>
+
+    <!-- Patient Form -->
+    <form id="patientForm" class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-4 shadow rounded">
+      <input type="text" id="name" placeholder="Name" class="border p-2 rounded" required />
+      <input type="number" id="age" placeholder="Age" class="border p-2 rounded" required />
+      <select id="gender" class="border p-2 rounded" required>
+        <option value="">Gender</option>
+        <option value="0">Male</option>
+        <option value="1">Female</option>
+      </select>
+      <input type="text" id="phone" placeholder="Phone" class="border p-2 rounded" required />
+      <input type="text" id="address" placeholder="Address" class="border p-2 rounded" required />
+      <select id="problem" class="border p-2 rounded" required>
+        <option value="">Problem Code</option>
+        <option value="1">Cold/Fever</option>
+        <option value="2">Injury</option>
+        <option value="3">Stomach</option>
+        <option value="4">Cardiac</option>
+        <option value="5">Other</option>
+      </select>
+      <button type="submit" class="bg-blue-600 text-white p-2 rounded col-span-2 hover:bg-blue-700">Add Patient</button>
+    </form>
+
+    <!-- Wait Time Display -->
+    <div id="waitTime" class="mt-4 font-semibold text-green-700 text-lg"></div>
+
+    <!-- Queue Table -->
+    <h2 class="text-xl font-semibold mt-6 mb-2">Current Queue</h2>
+    <div class="overflow-x-auto bg-white shadow rounded">
+      <table class="min-w-full border-collapse table-auto">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="p-2 text-left">Name</th>
+            <th class="p-2 text-left">Age</th>
+            <th class="p-2 text-left">Gender</th>
+            <th class="p-2 text-left">Problem</th>
+            <th class="p-2 text-left">Action</th>
+          </tr>
+        </thead>
+        <tbody id="queueTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <section class="bg-white p-4 rounded shadow mt-10 max-w-2xl mx-auto">
+  <h2 class="text-xl font-semibold text-gray-800 mb-2">📘 About the Project</h2>
+  <p class="text-gray-700">
+    This system helps hospitals manage patient queues and predict waiting time using machine learning.
+  </p>
+</section>
+
+<footer class="bg-gray-100 text-center text-sm text-gray-600 py-3 mt-10 border-t">
+  © 2025 MediQueue • Rajiv Kumar, MNNIT
+</footer>
+
+  <!-- JavaScript -->
+  <script src="patient_dash.js"></script>
+</body>
+</html>

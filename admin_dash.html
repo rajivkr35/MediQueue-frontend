@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediQueue – Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+
+  <!-- 🔷 Navbar -->
+  <nav class="bg-blue-700 text-white p-4 flex justify-between items-center">
+    <h1 class="text-xl font-semibold">🏥 MediQueue Admin</h1>
+    <button id="logoutBtn" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded">
+      Logout
+    </button>
+  </nav>
+
+  <!-- 🔍 Admin Info -->
+  <main class="p-6">
+    <section class="mb-6">
+      <p class="text-gray-700 text-lg">
+        👨‍⚕️ <span id="userInfo">Loading admin info...</span>
+      </p>
+    </section>
+
+    <!-- 🛠️ Admin Tools Placeholder -->
+    <section class="bg-white p-6 rounded shadow">
+      <h2 class="text-xl font-semibold mb-4">📊 Admin Tools</h2>
+      <p class="text-gray-600">
+        Coming soon: View all registered patients, hospitals, system analytics, etc.
+      </p>
+    </section>
+
+    <!-- 👥 Patient List -->
+    <section class="mt-8">
+      <h2 class="text-xl font-semibold mb-4">🧑‍🤝‍🧑 Registered Patients</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white rounded shadow">
+          <thead>
+            <tr class="bg-blue-100 text-left">
+              <th class="p-2">Name</th>
+              <th class="p-2">Email</th>
+              <th class="p-2">Phone</th>
+              <th class="p-2">Gender</th>
+              <th class="p-2">Age</th>
+              <th class="p-2">Address</th>
+              <th class="p-2">Action</th>
+            </tr>
+          </thead>
+          <tbody id="patientTable" class="text-sm text-gray-700">
+            <tr>
+              <td colspan="6" class="p-2 text-center text-gray-500">⏳ Loading patients...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+<footer class="bg-gray-100 text-center text-sm text-gray-600 py-3 mt-10 border-t">
+  © 2025 MediQueue • Rajiv Kumar, MNNIT
+</footer>
+
+  <!-- 📜 Script -->
+  <script src="admin_dash.js"></script>
+</body>
+</html>
